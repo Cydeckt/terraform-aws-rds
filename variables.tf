@@ -1,9 +1,3 @@
-variable "dns_zone_id" {
-  type        = string
-  default     = ""
-  description = "The ID of the DNS Zone in Route53 where a new DNS record will be created for the DB host name"
-}
-
 variable "host_name" {
   type        = string
   default     = "db"
@@ -31,23 +25,25 @@ variable "associate_security_group_ids" {
 variable "database_name" {
   type        = string
   description = "The name of the database to create when the DB instance is created"
+  default     = "rds"
 }
 
 variable "database_user" {
   type        = string
-  default     = ""
+  default     = "admin"
   description = "(Required unless a `snapshot_identifier` or `replicate_source_db` is provided) Username for the master DB user"
 }
 
 variable "database_password" {
   type        = string
-  default     = ""
+  default     = "postgres"
   description = "(Required unless a snapshot_identifier or replicate_source_db is provided) Password for the master DB user"
 }
 
 variable "database_port" {
   type        = number
   description = "Database port (_e.g._ `3306` for `MySQL`). Used in the DB Security Group to allow access to the DB instance from the provided `security_group_ids`"
+  default     = 5432
 }
 
 variable "deletion_protection" {
@@ -59,7 +55,7 @@ variable "deletion_protection" {
 variable "multi_az" {
   type        = bool
   description = "Set to true if multi AZ deployment must be supported"
-  default     = false
+  default     = true
 }
 
 variable "storage_type" {
@@ -83,6 +79,7 @@ variable "iops" {
 variable "allocated_storage" {
   type        = number
   description = "The allocated storage in GBs"
+  default     = 20
 }
 
 variable "max_allocated_storage" {
@@ -94,6 +91,7 @@ variable "max_allocated_storage" {
 variable "engine" {
   type        = string
   description = "Database engine type"
+  default     = "postgres"
   # http://docs.aws.amazon.com/cli/latest/reference/rds/create-db-instance.html
   # - mysql
   # - postgres
@@ -104,13 +102,14 @@ variable "engine" {
 variable "engine_version" {
   type        = string
   description = "Database engine version, depends on engine type"
+  default     = "12.5"
   # http://docs.aws.amazon.com/cli/latest/reference/rds/create-db-instance.html
 }
 
 variable "major_engine_version" {
   type        = string
   description = "Database MAJOR engine version, depends on engine type"
-  default     = ""
+  default     = "12.0"
   # https://docs.aws.amazon.com/cli/latest/reference/rds/create-option-group.html
 }
 
@@ -123,6 +122,7 @@ variable "license_model" {
 variable "instance_class" {
   type        = string
   description = "Class of RDS instance"
+  default     = "db.t3.micro"
   # https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html
 }
 
@@ -130,6 +130,7 @@ variable "instance_class" {
 # We're "cloning" default ones, but we need to specify which should be copied
 variable "db_parameter_group" {
   type        = string
+  default     = "postgres12.5"
   description = "The DB parameter group family name. The value depends on DB engine used. See [DBParameterGroupFamily](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBParameterGroup.html#API_CreateDBParameterGroup_RequestParameters) for instructions on how to retrieve applicable value."
   # "mysql5.6"
   # "postgres9.5"
