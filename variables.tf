@@ -25,7 +25,7 @@ variable "associate_security_group_ids" {
 variable "database_name" {
   type        = string
   description = "The name of the database to create when the DB instance is created"
-  default     = "rds"
+  default     = "postgres"
 }
 
 variable "database_user" {
