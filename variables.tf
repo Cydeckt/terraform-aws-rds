@@ -61,7 +61,7 @@ variable "multi_az" {
 variable "storage_type" {
   type        = string
   description = "One of 'standard' (magnetic), 'gp2' (general purpose SSD), or 'io1' (provisioned IOPS SSD)"
-  default     = "standard"
+  default     = "gp2"
 }
 
 variable "storage_encrypted" {
@@ -109,7 +109,7 @@ variable "engine_version" {
 variable "major_engine_version" {
   type        = string
   description = "Database MAJOR engine version, depends on engine type"
-  default     = "12.0"
+  default     = "12"
   # https://docs.aws.amazon.com/cli/latest/reference/rds/create-option-group.html
 }
 
