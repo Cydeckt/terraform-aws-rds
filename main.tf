@@ -1,6 +1,5 @@
 module "final_snapshot_label" {
-  source     = "../label/null-label"
-  version    = "0.24.1"
+  source     = "../null-label"
   attributes = ["final", "snapshot"]
   context    = module.this.context
 }
